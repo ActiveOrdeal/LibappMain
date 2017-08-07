@@ -3,6 +3,14 @@ class BooksController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :check_user, except: [:index, :show]
 
+
+  def search
+    if params[:search].present?
+      @books = Book.search(params[:search])
+    else
+      @books = Book.all
+    end
+  end  
   # GET /books
   # GET /books.json
   def index
